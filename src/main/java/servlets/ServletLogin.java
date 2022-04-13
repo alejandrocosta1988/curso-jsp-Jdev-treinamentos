@@ -40,6 +40,20 @@ public class ServletLogin extends HttpServlet {
 			
 		}
 		
+		//simulação de login
+		if (modelLogin.getLogin().equalsIgnoreCase("admin")
+				&& modelLogin.getSenha().equalsIgnoreCase("admin")) {
+			
+			request.getSession().setAttribute("usuario", modelLogin.getLogin()); //login e senha validados. Criamos uma seção e passamos o login do usuário como atributo. Poderíamos passar o modelLogin inteiro, mas assim a senha ficaria registrada na seção.
+			RequestDispatcher redirecionamento = request.getRequestDispatcher("principal/principal.jsp");
+			redirecionamento.forward(request, response);
+			
+		} else {
+			RequestDispatcher redirecionamento = request.getRequestDispatcher("index.jsp");
+			request.setAttribute("msg", "Login ou senha incorreto.");
+			redirecionamento.forward(request, response);
+		}
+		
 		
 	}
 
