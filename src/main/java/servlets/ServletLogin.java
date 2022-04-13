@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.ModelLogin;
 
-// O mapeamento é "/ServletLogin". Está configurado em webapp/WEB-INF/web.xml
+// O mapeamento é "/ServletLogin" e "/principal/ServletLogin". Está configurado em webapp/WEB-INF/web.xml
 public class ServletLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -31,10 +31,12 @@ public class ServletLogin extends HttpServlet {
 		ModelLogin modelLogin = new ModelLogin();
 		modelLogin.setLogin(request.getParameter("login"));
 		modelLogin.setSenha(request.getParameter("senha"));
+
+		String url = request.getParameter("url");
 		
 		if (!modelLogin.isLoginAndSenhaValid()) {
 			
-			RequestDispatcher redirecionamento = request.getRequestDispatcher("index.jsp");
+			RequestDispatcher redirecionamento = request.getRequestDispatcher("/index.jsp");
 			request.setAttribute("msg", "Login ou senha incorreto.");
 			redirecionamento.forward(request, response);
 			
@@ -45,7 +47,12 @@ public class ServletLogin extends HttpServlet {
 				&& modelLogin.getSenha().equalsIgnoreCase("admin")) {
 			
 			request.getSession().setAttribute("usuario", modelLogin.getLogin()); //login e senha validados. Criamos uma seção e passamos o login do usuário como atributo. Poderíamos passar o modelLogin inteiro, mas assim a senha ficaria registrada na seção.
-			RequestDispatcher redirecionamento = request.getRequestDispatcher("principal/principal.jsp");
+			
+			if (url == null|| url.equals("null")) {
+				url = "principal/principal.jsp";
+			}
+			
+			RequestDispatcher redirecionamento = request.getRequestDispatcher(url);
 			redirecionamento.forward(request, response);
 			
 		} else {

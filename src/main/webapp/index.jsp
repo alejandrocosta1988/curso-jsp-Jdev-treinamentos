@@ -13,6 +13,8 @@
     <h1>Bem vindo ao Curso JSP</h1>
     
     <form action="ServletLogin" method="post">
+    
+      <input type="hidden" value="<%= request.getParameter("url") %>" name="url"> <!--O = entre os % faz com que esse valor seja impresso no html.-->
       
       <label for="login-input">Login</label>
       <input id="login-input" name="login" type="text">
