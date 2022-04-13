@@ -1,11 +1,13 @@
 package servlets;
 
+import java.io.IOException;
+
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import model.ModelLogin;
 
 // O mapeamento é "/ServletLogin". Está configurado em webapp/WEB-INF/web.xml
 public class ServletLogin extends HttpServlet {
@@ -25,7 +27,20 @@ public class ServletLogin extends HttpServlet {
 	 * Recebe os dados enviados via formulário.
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println(request.getParameter("nome"));
+
+		ModelLogin modelLogin = new ModelLogin();
+		modelLogin.setLogin(request.getParameter("login"));
+		modelLogin.setSenha(request.getParameter("senha"));
+		
+		if (!modelLogin.isLoginAndSenhaValid()) {
+			
+			RequestDispatcher redirecionamento = request.getRequestDispatcher("index.jsp");
+			request.setAttribute("msg", "Login ou senha incorreto.");
+			redirecionamento.forward(request, response);
+			
+		}
+		
+		
 	}
 
 }

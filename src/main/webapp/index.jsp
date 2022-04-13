@@ -12,16 +12,18 @@
 
     <h1>Bem vindo ao Curso JSP</h1>
     
-    <%
-      out.print("Seu sucesso garantido!");
-    %>
-    
     <form action="ServletLogin" method="post">
-      <input name="nome">
-      <input name="idade">
+      
+      <label for="login-input">Login</label>
+      <input id="login-input" name="login" type="text">
+      
+      <label for="senha-input">Senha</label>
+      <input id="senha-input" name="senha" type="password">
       
       <input type="submit" value="Enviar">
     </form>
+    
+    <h4>${msg}</h4>
 
   </body>
 </html>
