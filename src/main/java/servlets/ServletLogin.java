@@ -2,6 +2,7 @@ package servlets;
 
 import java.io.IOException;
 
+import dao.DAOLoginRepository;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -11,7 +12,10 @@ import model.ModelLogin;
 
 // O mapeamento é "/ServletLogin" e "/principal/ServletLogin". Está configurado em webapp/WEB-INF/web.xml
 public class ServletLogin extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
+	
+	private DAOLoginRepository daoLoginRepository = new DAOLoginRepository(); 
        
     public ServletLogin() {
         super();
@@ -34,33 +38,38 @@ public class ServletLogin extends HttpServlet {
 
 		String url = request.getParameter("url");
 		
-		if (!modelLogin.isLoginAndSenhaValid()) {
+		try {
 			
-			RequestDispatcher redirecionamento = request.getRequestDispatcher("/index.jsp");
-			request.setAttribute("msg", "Login ou senha incorreto.");
-			redirecionamento.forward(request, response);
-			
-		}
-		
-		//simulação de login
-		if (modelLogin.getLogin().equalsIgnoreCase("admin")
-				&& modelLogin.getSenha().equalsIgnoreCase("admin")) {
-			
-			request.getSession().setAttribute("usuario", modelLogin.getLogin()); //login e senha validados. Criamos uma seção e passamos o login do usuário como atributo. Poderíamos passar o modelLogin inteiro, mas assim a senha ficaria registrada na seção.
-			
-			if (url == null|| url.equals("null")) {
-				url = "principal/principal.jsp";
+			if (!modelLogin.isLoginAndSenhaValid()) {
+				
+				RequestDispatcher redirecionamento = request.getRequestDispatcher("/index.jsp");
+				request.setAttribute("msg", "Login ou senha incorreto.");
+				redirecionamento.forward(request, response);
+				
 			}
 			
-			RequestDispatcher redirecionamento = request.getRequestDispatcher(url);
-			redirecionamento.forward(request, response);
+			//simulação de login
+			if (daoLoginRepository.validarAutenticacao(modelLogin)) {
+				
+				request.getSession().setAttribute("usuario", modelLogin.getLogin()); //login e senha validados. Criamos uma seção e passamos o login do usuário como atributo. Poderíamos passar o modelLogin inteiro, mas assim a senha ficaria registrada na seção.
+				
+				if (url == null|| url.equals("null")) {
+					url = "principal/principal.jsp";
+				}
+				
+				RequestDispatcher redirecionamento = request.getRequestDispatcher(url);
+				redirecionamento.forward(request, response);
+				
+			} else {
+				RequestDispatcher redirecionamento = request.getRequestDispatcher("/index.jsp");
+				request.setAttribute("msg", "Login ou senha incorreto.");
+				redirecionamento.forward(request, response);
+			}
 			
-		} else {
-			RequestDispatcher redirecionamento = request.getRequestDispatcher("index.jsp");
-			request.setAttribute("msg", "Login ou senha incorreto.");
-			redirecionamento.forward(request, response);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
 		}
-		
 		
 	}
 

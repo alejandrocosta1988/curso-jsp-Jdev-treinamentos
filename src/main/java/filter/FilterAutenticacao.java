@@ -18,10 +18,11 @@ import jakarta.servlet.http.HttpSession;
 // Um filtro intercepta todas as requisições que vierem do projeto ou mapeamento. O index não passa pelo filtro. O padrão de url para passar pelo filtro foi configurado como "principal/*". Ver em src/main/webapp/WEB-INF/web.xml
 public class FilterAutenticacao extends HttpFilter {
 	
+	private static final long serialVersionUID = 1L;
+	
 	private static Connection connection;
        
     public FilterAutenticacao() {
-        super();
     }
 
     //Encerra os processos quando o servidor é parado.

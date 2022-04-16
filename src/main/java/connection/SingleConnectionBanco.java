@@ -2,11 +2,12 @@ package connection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.Properties;
 
 public class SingleConnectionBanco {
 
 	// utilização de um padrão singleton. Só devemos ter uma conexão com o banco de dados. O que abre e fecha são seções e transações. A conexão é só uma.
-	private static String banco = "jdbc:postgresql//localhost:5432/curso-jsp?autoReconnect=true";
+	private static String url = "jdbc:postgresql://localhost:5432/curso-jsp?autoReconnect=true";
 	private static String user = "postgres";
 	private static String senha = "admin";
 	private static Connection connection = null;
@@ -28,8 +29,8 @@ public class SingleConnectionBanco {
 		try {
 			
 			if (connection == null) {
-				Class.forName("org.postgresql.Driver"); //carregar o driver de conexão com PostgresSQL
-				connection = DriverManager.getConnection(banco, user, senha);
+				Class.forName("org.postgresql.Driver");
+				connection = DriverManager.getConnection(url, user, senha);
 				connection.setAutoCommit(false); //para não efetuar alterações no banco sem o nosso comando
 			}
 			
