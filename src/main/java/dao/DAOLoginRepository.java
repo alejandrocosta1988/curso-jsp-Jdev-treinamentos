@@ -8,13 +8,13 @@ import java.sql.SQLException;
 import connection.SingleConnectionBanco;
 import model.ModelLogin;
 
+
 public class DAOLoginRepository {
 
-	private SingleConnectionBanco connectionObject = new SingleConnectionBanco();
 	private Connection connection;
 	
 	public DAOLoginRepository() {
-		connection = connectionObject.getConnection();
+		connection = SingleConnectionBanco.getConnection();
 	}
 	
 	public boolean validarAutenticacao(ModelLogin modelLogin) throws SQLException {
@@ -31,6 +31,10 @@ public class DAOLoginRepository {
 		
 		return false; //não autenticado
 		
+	}
+	
+	protected boolean isConnected() {
+		return this.connection != null;
 	}
 	
 }
