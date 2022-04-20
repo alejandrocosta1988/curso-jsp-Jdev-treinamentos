@@ -51,7 +51,7 @@
             <input type="submit" value="Enviar" class="w-100 btn btn-primary">
           </div>
           
-          <h6 class="text-muted">${msg}</h6>
+          <p class="text-muted">${msg}</p>
     
           <hr class="my-4">
           
