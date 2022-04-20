@@ -16,23 +16,35 @@
     
       <div class="col-lg-7 text-center text-lg-start">
         <h1 class="display-4 fw-bold lh-1 mb-3">Bem vindo ao Curso JSP</h1>
-        <p class="col-lg-10 fs-4">Esta página está sendo criada ao longo de minha participação no treinamento de desenvolvimento web full stack utilizando Java e JPS. O treinamento está sendo ministrado pela JDev Treinamentos.</p>    
+        <p class="col-lg-10 fs-5">Esta página está sendo criada ao longo de minha participação no treinamento de desenvolvimento web full stack utilizando Java e JPS. O treinamento está sendo ministrado pela JDev Treinamentos.</p>    
       </div>
 
     
       <div class="col-md-10 mx-auto col-lg-5">
-        <form action="ServletLogin" method="post" class="p-4 p-md-5 border rounded-3 bg-light">
+        <form action="ServletLogin" method="post" class="p-4 p-md-5 border rounded-3 bg-light needs-validation" novalidate>
     
           <input type="hidden" value="<%= request.getParameter("url") %>" name="url"> <!--O = entre os % faz com que esse valor seja impresso no html.-->
       
           <div class="mb-3">
             <label for="login-input" class="form-label">Login</label>
-            <input id="login-input" name="login" type="text" class="form-control">
+            <input id="login-input" name="login" type="text" class="form-control" required>
+            <div class="valid-feedback">
+              Ok!
+            </div>
+            <div class="invalid-feedback">
+              Informe o nome de usuário.
+            </div>
           </div>  
   
           <div class="mb-3">      
             <label for="senha-input" class="form-label">Senha</label>
-            <input id="senha-input" name="senha" type="password" class="form-control">
+            <input id="senha-input" name="senha" type="password" class="form-control" required>
+            <div class="valid-feedback">
+              Ok!
+            </div>
+            <div class="invalid-feedback">
+              Informe a senha.
+            </div>
           </div>
       
           <div class="mb-3">
@@ -52,5 +64,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    
+    <script src="index.js" type="text/javascript"></script>
   </body>
 </html>
