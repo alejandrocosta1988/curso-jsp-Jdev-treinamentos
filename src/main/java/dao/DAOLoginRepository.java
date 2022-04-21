@@ -27,8 +27,7 @@ public class DAOLoginRepository {
 			
 		ResultSet resultSet = statement.executeQuery();
 		
-		if (resultSet.next()) return true; //autenticado
-		
+		if (resultSet.next()) {return true;} //autenticado
 		return false; //não autenticado
 		
 	}
