@@ -23,7 +23,9 @@ public class ModelLogin {
 
 	public boolean isLoginAndSenhaValid() {
 		
-		if (isLoginValid() && isSenhaValid()) return true;	
+		if (isLoginValid() && isSenhaValid()) {
+			return true;
+		}	
 		return false;
 		
 	}
@@ -39,7 +41,9 @@ public class ModelLogin {
 	
 	private boolean isSenhaValid() {
 		
-		if (this.senha != null && !this.senha.isEmpty()) return true;
+		if (this.senha != null && !this.senha.isEmpty()) {
+			return true;
+		}
 		return false;
 		
 	}
