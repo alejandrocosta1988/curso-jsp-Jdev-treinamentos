@@ -30,8 +30,8 @@
                     <div class="page-body">
                       <div class="row">
                       
-                        Conteúdo das páginas do sistema.
-                      
+                        Conteúdo da página base.
+                        
                       </div>
                     </div>
                   </div>
